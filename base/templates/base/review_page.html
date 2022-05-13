@@ -1,0 +1,36 @@
+{% extends 'main.html' %}
+{% block content %}
+<style>
+    .review-container{
+        padding:20px;
+        background-color:#F0FFF0;
+        width: 70%;
+        margin-left:10px;
+        
+    }
+    .review-box{
+        
+        background: #fff;
+        margin-bottom: 30px;
+        border: 0;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        border-radius: .55rem;
+        box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
+    }
+    .review-content{
+        margin-left:10px;
+        
+    }
+</style>
+<div class="review-container">
+    <h1> Movie Reviews </h1>
+    {% for review in reviews %}
+        <div class="review-box">
+            <h5 class="review-content"><strong>@{{ review.user }}</strong> {{ review.created | timesince }} ago </h3>
+            <p class="review-content"> {{ review.review}}</p>
+            <h5 class="review-content"> Rated :  {{ review.rating }} <i class="fa fa-star" aria-hidden="true"></i></h5>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

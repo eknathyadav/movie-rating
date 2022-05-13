@@ -1,0 +1,38 @@
+{% extends 'main.html' %}
+{% block content %}
+<style>
+.card{
+    margin-top:15px;
+    background-color:#F0FFF0;
+}
+.card-img-top{
+    width: 180px;
+    height: 178px;
+}
+.card-body{
+    margin-left:10px;
+}
+.card-text{
+        height: 45px;
+}
+.movies-container{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+
+}
+</style>
+    <div class="movies-container">
+       {% for movie in movies %}
+       <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{{ movie.movie_image.url }}" alt="Movie Image">
+            <div class="card-body">
+            <h5 class="card-title"> <i class="fa fa-star" aria-hidden="true">    {{ movie.movie_rating}}</i></h5>
+            <p class="card-text"><a href= "{% url 'base:getMovie' movie.id %}">{{ movie.name }}</a></p>
+            <a href="#" class="btn btn-primary">Watch Options</a>
+            </div>
+        </div>
+       {% endfor %}
+    </div>
+{% endblock %}

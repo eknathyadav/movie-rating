@@ -1,0 +1,38 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<style>
+    .movie-container{
+        padding:20px;
+        background-color:#F0FFF0;
+        width: 50%;
+        margin: auto;
+    }
+    .image-box{
+        margin-top:10px;
+        margin-bottom:10px;
+    }
+    .image-box img{
+        height: 184px;
+    }
+</style>
+<div class="movie-container">
+    <h1> {{ movie.name }}</h1>
+     Genre :
+     {% for genre in movie.genre.all %}
+        <span class="label label-pill label-danger">{{ genre }}</span>
+    {% endfor %}
+    <div class="image-box">
+        <img src="{{ movie.movie_image.url }}">
+    </div>
+    
+    <h4> Directed By : <strong>{{ movie.director }}</strong> </h5>
+    <span>Casts : </span>
+    {% for actor in movie.actor.all %}
+    <span><strong><a href="#">{{ actor }}</a></strong></span>
+    {% endfor %}
+    <h2><a href = "{% url 'base:userReviews' movie.id %}"> User Reviews </h2>
+    <a href="{% url 'base:user-review' movie.id %}">Add Review</a>
+<div>
+    
+{% endblock %}

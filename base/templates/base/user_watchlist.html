@@ -1,0 +1,56 @@
+{% extends 'main.html' %}
+{% block content %}
+    <style>
+        .watch-list-item{
+            display:flex;
+            margin:10px;
+            border: 1px solid antiquewhite;
+            width: 508px;
+        }
+        .movie-image{
+            width:110px;
+            height:150px;
+            margin-right:5px;
+
+        }
+        .movie-content{
+            width:200px;
+            width: 400px;
+            position:relative; 
+        }
+        .movie-image img{
+            width:110px;
+            height:150px;
+        }
+        .list-title{
+            margin-left:10px;
+        }
+        .cross{
+            position: absolute;
+            left: 382px;
+            top: -3px;
+        }
+    </style>
+    <h3 class="list-title"> Your Watch list </h3>
+    <div class="watchlist-container">
+    
+    {% for item in watch_list %}
+        <div class="watch-list-item">
+            <div class="movie-image">
+                <img src= "{{ item.movie.movie_image.url }}"></img>
+            </div>
+            <div class="movie-content">
+                <a href="{% url 'base:delete-watch-list-item' item.id %}"><i class="fa-solid fa-xmark cross"></i></a>
+                <p><a href="{% url 'base:getMovie' item.movie.id %}"> {{ item.movie.name }} </a></p>
+                <p> Rated {{ item.movie.movie_rating }} <i class="fa fa-star" aria-hidden="true"></i> <p>
+                <p>
+                    <a href="#">{{ item.movie.director }}</a> |
+                    {% for actor in item.movie.actor.all %}
+                        <span><a href="#">{{ actor.name }}</a></span>
+                    {% endfor%}
+                </p>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

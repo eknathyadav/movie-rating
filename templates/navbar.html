@@ -223,6 +223,9 @@
         text-align: center;
         border-top: 1px solid #e0e0e0;
       }
+      .countWl span{
+        margin-right:5px;
+      }
       .or-seperator b {
         color: #666;
         padding: 0 8px;
@@ -312,34 +315,25 @@
             >
           </div>
         </form>
-        {% if request.user.is_authenticated %}
+       
         <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a class="btn btn-primary get-started-btn mt-1 mb-1 countWl" href="{% url 'base:watch-list' %}" role="button"> <span> Watchlist </span> <span class="badge badge-light">{{ countWatchList }}</span></a>
+          </li>
+          {% if request.user.is_authenticated %}
           <li>
             <a
               href="{% url 'base:logout' %}"
-              class="btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1"
-              >Log Out</a
-            >
+              >Log Out</a>
           </li>
-        </ul>
-
-        {% else %}
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <a
-              href="{% url 'base:register' %}"
-              class="btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1"
-              >Sign up</a
-            >
+          {% else %}
+           <li>
+            <a href="{% url 'base:login' %}"
+            >Login</a>
           </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <a href="{% url 'base:login' %}">Login</a>
-          </li>
+          {% endif %}
         </ul>
       </div>
-      {% endif %}
     </nav>
   </body>
-</html>
+  </html>

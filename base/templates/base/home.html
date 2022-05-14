@@ -22,6 +22,10 @@
     align-items: center;
 
 }
+.watchlist span{
+    margin-right:8px;
+    
+}
 </style>
     <div class="movies-container">
        {% for movie in movies %}
@@ -30,7 +34,11 @@
             <div class="card-body">
             <h5 class="card-title"> <i class="fa fa-star" aria-hidden="true">    {{ movie.movie_rating}}</i></h5>
             <p class="card-text"><a href= "{% url 'base:getMovie' movie.id %}">{{ movie.name }}</a></p>
-            <a href="#" class="btn btn-primary">Watch Options</a>
+            {% if movie not in userWatchList %}
+            <a  href="{% url 'base:home' %}?w={{ movie.id }}" class="btn btn-primary watchlist"><span><i class="fa-solid fa-plus"></i></span><span>Watchlist</span></a>
+            {% else %}
+            <a href="{% url 'base:home' %}?rw={{ movie.id }}" class="btn btn-primary watchlist"><span><i class="fa-solid fa-check"></i></span><span>Watchlist</span></a>
+            {% endif %}
             </div>
         </div>
        {% endfor %}

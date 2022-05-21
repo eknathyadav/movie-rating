@@ -1,46 +1,76 @@
-{% extends 'main.html' %}
-{% block content %}
+{% extends 'main.html' %} {% block content %}
 <style>
-.card{
-    margin-top:15px;
-    background-color:#F0FFF0;
-}
-.card-img-top{
+  .card {
+    margin-top: 15px;
+    background-color: #f0fff0;
+  }
+  .card-img-top {
     width: 180px;
     height: 178px;
-}
-.card-body{
-    margin-left:10px;
-}
-.card-text{
-        height: 45px;
-}
-.movies-container{
-    display:flex;
+  }
+  .card-body {
+    margin-left: 10px;
+  }
+  .card-text {
+    height: 45px;
+  }
+  .movies-container {
+    display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
-
-}
-.watchlist span{
-    margin-right:8px;
-    
-}
+  }
+  .watchlist span {
+    margin-right: 8px;
+  }
 </style>
-    <div class="movies-container">
-       {% for movie in movies %}
-       <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="{{ movie.movie_image.url }}" alt="Movie Image">
-            <div class="card-body">
-            <h5 class="card-title"> <i class="fa fa-star" aria-hidden="true">    {{ movie.movie_rating}}</i></h5>
-            <p class="card-text"><a href= "{% url 'base:getMovie' movie.id %}">{{ movie.name }}</a></p>
-            {% if movie not in userWatchList %}
-            <a  href="{% url 'base:home' %}?w={{ movie.id }}" class="btn btn-primary watchlist"><span><i class="fa-solid fa-plus"></i></span><span>Watchlist</span></a>
-            {% else %}
-            <a href="{% url 'base:home' %}?rw={{ movie.id }}" class="btn btn-primary watchlist"><span><i class="fa-solid fa-check"></i></span><span>Watchlist</span></a>
-            {% endif %}
-            </div>
-        </div>
-       {% endfor %}
+<div class="movies-container">
+  {% for movie in movies %}
+  <div class="card" style="width: 18rem">
+    <img
+      class="card-img-top"
+      src="{{ movie.movie_image.url }}"
+      alt="Movie Image"
+    />
+    <div class="card-body">
+      <h5 class="card-title">
+        <i class="fa fa-star" aria-hidden="true"> {{ movie.movie_rating}}</i>
+      </h5>
+      <p class="card-text">
+        <a href="{% url 'base:getMovie' movie.id %}">{{ movie.name }}</a>
+      </p>
+      <form method="POST" id="task-form" action="">
+        {% csrf_token %}
+        <input
+          type="hidden"
+          id="movie_id"
+          name="movie_id"
+          value="{{movie.id}}"
+        />
+        {% if movie not in userWatchList %}
+        <button
+          name="addToWl"
+          id="Wl"
+          class="btn btn-primary watchlist"
+          type="submit"
+          value="add"
+        >
+          <span><i class="fa-solid fa-plus"></i></span><span>Watchlist</span>
+        </button>
+        {% else %}
+        <button
+          name="removeFromWl"
+          id="Wl"
+          class="btn btn-primary watchlist"
+          type="submit"
+          value="remove"
+        >
+          <span><i class="fa-solid fa-check"></i></span><span>Watchlist</span>
+        </button>
+        {% endif %}
+      </form>
     </div>
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}

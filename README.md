@@ -1,4 +1,6 @@
 # Movie Rating Website
+It's a site which allow users to rate movies and add reviews. User can also watch list any movie and delete it if they want.
+
 ## Installation
 1. Clone the project.
    ```
